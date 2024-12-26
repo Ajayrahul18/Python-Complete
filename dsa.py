@@ -87,14 +87,24 @@ def insertionAtEnd(head, value):
 
 ### Insertion -> At a Sepecific position
 
-def inserPosition(head, value, pos):
-    new_node = Node(value)
-    curr = head
-
+def LinkedinserPosition(head, value, pos):
+    if pos <= 0:
+        return "Invalid"
     if pos == 1:
+        new_node = Node(value)
         new_node.next = head
-        head = new_node
-        return head
+        return new_node
+    
+    prev = head
+    count = 1
+    while count < pos - 1 and prev is not None:
+        prev = prev.next
+        count += 1
+
+    new_node = Node(value)
+    new_node.next = prev.next
+    prev.next = new_node
+    return head
     
 ### Delection at the start
 
@@ -117,15 +127,29 @@ def deleAtEnd(head):
 ### Delection at Sepecific Location
 
 def delAtSepfic(head, pos):
-    if pos < 1:
+    if pos <= 0:
         return("Invalid")
-    elif pos == 1:
+    if pos == 1:
         temp = head
         head = head.next
         temp = None
+    
+    prev = head
+    count = 1
+    while count < pos-1 and prev is not None:
+        prev = prev.next
+        count += 1
+
+    temp = prev.next
+    prev.next = prev.next.next
+    temp = None
+    return head
 
 
-####    Double Linked List
+####                     Double Linked List
+
+
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -160,7 +184,7 @@ def InsertAtFront(head, value):
     return new_node
 
 ### Insertation at End
-def insertaDablLstEnd(head, value):
+def insertaDoublLstEnd(head, value):
     new_node = Node(value)
 
     if head is None:
@@ -173,6 +197,30 @@ def insertaDablLstEnd(head, value):
         new_node.prev = curr
 
         return head
+    
+def insertDoubleLinkAtAny(head, pos, value):
+    new_node = Node(value)
+    if pos <= 0:
+        return "Invalid"
+    if pos == 1:
+        new_node.next = head
+        head.prev = new_node
+        return new_node
+    else:
+        curr = head
+        count = 1
+        while count < pos-1 is not None:
+            curr = curr.next
+            count += 1
+        new_node.next = curr.next
+        new_node.prev = curr
+        if new_node.next is not None:
+            new_node.next.prev = new_node
+        curr.next = new_node
+        
+        return head 
+        
+
 
 def deleteDoubleLinkAtStart(head):
     if head is None:
@@ -190,6 +238,26 @@ def deleDblLinkAtEnd(head):
     curr = curr.prev
     curr.next = None
     return head
+
+def deleDblLinkAtAny(head, pos):
+    if pos <= 0:
+        return "Invalide"
+    curr = head
+    count = 1
+    while count < pos is not None:
+        curr = curr.next
+        count += 1
+    if curr is None:
+        return "Invalid"
+    if curr.next is not None:
+        curr.next.prev = curr.prev
+    if curr.prev is not None:
+        curr.prev.next = curr.next
+    if head == curr:
+        head = curr.next
+    return head
+
+        
 
 
 def printDoubList(head):
@@ -209,6 +277,16 @@ if __name__ == "__main__":
     head.next.next = Node(30)
     head.next.next.prev = head.next
 
-    head = (deleDblLinkAtEnd(head))
+    head = (deleDblLinkAtAny(head, 1))
     printDoubList(head)
 
+###      Stack
+
+##  Basic Operations on Stack
+## 1. Insert a element -> push()
+## 2. Remove an Element -> pop()
+## 3. top element-> top()
+## 4. returns true if the stack is empty -> isEmpty()
+## 5. return true if the stack is full -> isFull()
+
+### 1. Implementing Using Array
