@@ -278,7 +278,7 @@ if __name__ == "__main__":
     head.next.next.prev = head.next
 
     head = (deleDblLinkAtAny(head, 1))
-    printDoubList(head)
+    #printDoubList(head)
 
 ###      Stack
 
@@ -290,3 +290,188 @@ if __name__ == "__main__":
 ## 5. return true if the stack is full -> isFull()
 
 ### 1. Implementing Using Array
+
+from sys import maxsize
+def createStack():
+    stack =[]
+    return stack
+
+def isEmpty(stack):
+    return len(stack) == 0
+    
+def push(stack, value):
+    stack.append(value)
+    print(f"{value} is added")
+
+def pop(stack):
+    if (isEmpty(stack)):
+        return str(-maxsize -1)
+    return stack.pop()
+
+# stack = createStack()
+# push(stack, 5)
+# push(stack, 10)
+# push(stack, 15)
+# print(pop(stack))
+
+
+### 1. Implementing Using Linked List
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class Stack:
+    def __init__(self):
+        self.head = None
+    
+    def isEmpty(self):
+        return self.head is None
+    
+    def push(self, new_value):
+        new_node = Node(new_value)
+
+        if not new_node:
+            print("Invalid")
+            return
+        new_node.next = self.head
+        self.head = new_node
+
+    def pop(self):
+        if self.isEmpty():
+            print("Invalid")
+            return
+        curr = self.head
+        self.head = self.head.next
+        del curr
+
+    def peek(self):
+        if not self.isEmpty():
+            print(self.head.data)
+
+# st = Stack()
+# st.push(5)
+# st.push(10)
+# st.push(15)
+# st.pop()
+# st.peek()  #10
+
+####     Queue -> FIFO
+
+## Implementing using Array
+
+class Queue:
+    def __init__(self, capacity):
+        self.queue = [None] * capacity
+        self.front = 0
+        self.size = 0
+        self.capacity = capacity
+
+    def enqueue(self, data):
+        if self.size == self.capacity:
+            return "the queue is full"
+        self.queue[self.front + self.size] = data
+        self.size += 1
+
+    def dequeue(self):
+        if self.size == 0:
+            print("the queue is empty") 
+        for i in range(1, self.size):
+            self.queue[i-1] = self.queue[i]
+            self.size -= 1
+
+    def dispaly(self):
+        if self.queue == 0:
+            print("Queue is empty")
+        for i in range(self.size):
+            print(self.queue[i], end = " ")
+        print()
+
+# if __name__ == '__main__':
+#     q = Queue(5)
+
+#     q.dispaly()
+
+#     q.enqueue(20)
+#     q.enqueue(30)
+#     q.enqueue(40)
+#     q.enqueue(50)
+
+#     q.dispaly()
+
+#     q.dequeue()
+#     q.dequeue()
+
+#     q.dispaly()
+
+
+### Implimenting the Queue in Linked List
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class Queue:
+    def __init__(self):
+        self.front = None
+        self.rear = None
+
+    def is_empty(self):
+        if self.front is None and self.rear is None:
+            print("It is empty")
+
+    def enqueue(self, data):
+        new_node = Node(data)
+
+        if self.rear is None:
+            self.front = self.rear = new_node
+            return 
+
+        self.rear.next = new_node
+        self.rear = new_node
+
+    def dequeue(self):
+        if self.is_empty():
+            print("Queue is empty")
+            return
+        temp = self.front
+        self.front = self.front.next
+
+        if self.front is None:
+            self.rear = None
+    
+    def get_front(self):
+        if self.is_empty():
+            print("Queue is empty")
+            return "0"
+        return self.front.data
+    
+    def get_rear(self):
+        if self.is_empty():
+            print("Queue is empty")
+            return "0"
+        return self.rear.data
+        
+
+if __name__ == "__main__":
+    q = Queue()
+
+    q.enqueue(10)
+    q.enqueue(20)
+
+    print("Queue Front:", q.get_front())
+    print("Queue Rear:", q.get_rear())
+
+    q.dequeue()
+    q.dequeue()
+
+    q.enqueue(30)
+    q.enqueue(40)
+    q.enqueue(50)
+
+    q.dequeue()
+
+    print("Queue Front:", q.get_front())
+    print("Queue Rear:", q.get_rear())
