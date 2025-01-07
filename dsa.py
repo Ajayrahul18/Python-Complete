@@ -475,3 +475,79 @@ if __name__ == "__main__":
 
     print("Queue Front:", q.get_front())
     print("Queue Rear:", q.get_rear())
+
+
+####         Binary Tree
+## Data 
+## Pointer to the left
+## Pointer to the right
+
+###  Create/Declare a Node
+
+class Node:
+    def __init__(self, key):
+        self.val = key
+        self.left = None
+        self.right = None
+
+first_node = Node(2)
+second_node = Node(3)
+third_node = Node(4)
+fifth_node = Node(5)
+
+first_node.left = second_node
+first_node.right = third_node
+second_node.left = fifth_node
+
+###   Properties of Binary tree
+# 1. the maximum number of nodes at level 'l' of a 
+# binary tree is 2^l
+# 2. the maximum number of nodes in a binary tree of 
+# height 'h' is 2^h - 1
+# 3. In a Binary tree with N nodes, the minimum possible 
+#height or the minimum number of levels is Log2(N+1)
+# 4. A Binary tree with L leaves has at least | Log2L |+1 levels
+# 5. In a Binary tree where every node has 0 or 2 children
+# the number of leaf nodes is always one more than nodes with 2 childern
+# 6. in a non-empty binary tree, if n is a total number of
+# nodes and e is the total number of edges, then e = n-1
+
+###   traversal in Binary tree
+
+# 1. DFS -> Depth-Fist Search
+#    1. Preorder traversal (current-left-right)
+#    2. Inorder traversal (left-current-right)
+#    3. Postorder traversal (left-right-current)
+
+# 2. Breadth-First Search
+
+class Node:
+    def __init__(self, node):
+        self.data = node
+        self.left = None
+        self.right = None
+
+#In order DFS: Left - Root - Right
+def in_order_dfs(node):
+    if node is None:
+        return
+    in_order_dfs(node.left)
+    print(node.data, end=' ')
+    in_order_dfs(node.right)
+
+#Pre-Order DFS: Root - Left - Right
+def pre_order_dfs(node):
+    if node is None:
+        return
+    print(node.data, end=' ')
+    pre_order_dfs(node.left)
+    pre_order_dfs(node.right)
+
+#Post-Order DFS: Left - Right - Root
+def post_order_dfs(node):
+    if node is None:
+        return
+    post_order_dfs(node.left)
+    post_order_dfs(node.right)
+    print(node.data, end=' ')
+        
